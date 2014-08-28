@@ -1,0 +1,27 @@
+{
+    "name": "jsreport-nodejs-client",
+    "version": "0.0.1",
+    "author": {
+        "name": "Jan Blaha",
+        "email": "jan.blaha@hotmail.com"
+    },
+    "homepage": "https://github.com/jsreport/nodejs-client",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:jsreport/nodejs-client.git"
+    },
+    "description": "Remote node.js client to ",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha --reporter spec test"
+    },
+    "licence": "MIT",
+    "devDependencies": {
+        "mocha": "^1.21.4",
+        "should": "^4.0.4",
+        "jsreport": "jsreport/jsreport"
+    },
+    "dependencies": {
+        "request": "^2.40.0"
+    }
+}
