@@ -21,8 +21,8 @@ describe('testing client', function () {
 
            reporter.dataProvider.dropStore().then(function() {
                done();
-           });
-       });
+           }).catch(done);
+       }).catch(done);
     });
 
     afterEach(function() {
