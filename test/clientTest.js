@@ -36,8 +36,11 @@ describe('testing client', function () {
         }, function(err, res) {
             should.not.exist(err);
             should.exist(res);
-            res.body.toString().should.be.equal("hello");
-            done();
+
+            res.body(function(body) {
+                body.toString().should.be.equal("hello");
+                done();
+            });
         });
     });
 
@@ -57,8 +60,11 @@ describe('testing client', function () {
         }, function(err, res) {
             should.not.exist(err);
             should.exist(res);
-            res.body.toString().should.be.equal("hello");
-            done();
+
+            res.body(function(body) {
+                body.toString().should.be.equal("hello");
+                done();
+            });
         });
     });
 
@@ -69,8 +75,11 @@ describe('testing client', function () {
         }, function(err, res) {
             should.not.exist(err);
             should.exist(res);
-            res.body.toString().should.be.equal("hello");
-            done();
+
+            res.body(function(body) {
+                body.toString().should.be.equal("hello");
+                done();
+            });
         });
     });
 
@@ -95,4 +104,30 @@ describe('testing client', function () {
             }).catch(done);
         });
     });
+
+    it('creating entity should update its shortid',function(done){
+        client(url + "/").createDataContext(function(err, dataContext) {
+
+            var template = dataContext.templates.add({
+                content: "hello"
+            });
+
+            dataContext.saveChanges().then(function() {
+                template.shortid.should.be.ok;
+                done();
+            }).catch(done);
+        });
+    });
 });
+
+describe('testing client without connection', function () {
+    it('should be able to render html',function(done){
+        client("http://localhost:9849").render({
+            template: { content: "hello", recipe: "html"}
+        }, function(err, res) {
+            should.exist(err);
+            done();
+        });
+    });
+});
+

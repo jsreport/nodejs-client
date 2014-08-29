@@ -1,5 +1,5 @@
 {
-  "name": "jsreport-nodejs-client",
+  "name": "jsreport-client",
   "version": "0.0.1",
   "author": {
     "name": "Jan Blaha",
@@ -22,6 +22,7 @@
     "should": "^4.0.4"
   },
   "dependencies": {
+    "concat-stream": "^1.4.6",
     "jaydata": "^1.3.6",
     "request": "^2.40.0"
   }
