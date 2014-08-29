@@ -10,6 +10,7 @@ describe('testing client', function () {
     var url = "http://localhost:3000";
 
     beforeEach(function(done) {
+       this.timeout(5000);
        jsreport.bootstrapper({
            rootDirectory: path.join(__dirname, "../"),
            connectionString: { name: "neDB" },

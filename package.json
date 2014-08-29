@@ -17,9 +17,9 @@
   },
   "licence": "MIT",
   "devDependencies": {
+    "jsreport": "jsreport/jsreport",
     "mocha": "^1.21.4",
-    "should": "^4.0.4",
-    "jsreport": "jsreport/jsreport"
+    "should": "^4.0.4"
   },
   "dependencies": {
     "jaydata": "^1.3.6",
