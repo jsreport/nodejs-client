@@ -4,7 +4,7 @@
 
 >npm install jsreport-client
 
-**jsreport node.js remote client. ** Documentation can be found **[here](http://jsreport.net/learn/nodejs-client)**.
+**jsreport node.js remote client. Documentation can be found [here](http://jsreport.net/learn/nodejs-client).**
 
 ##Development
 >git clone
