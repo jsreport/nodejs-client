@@ -19,10 +19,7 @@ describe('testing client', function () {
            httpPort: 3000
        }).start().then(function(bootstrapper) {
            reporter = bootstrapper.reporter;
-
-           reporter.dataProvider.dropStore().then(function() {
-               done();
-           }).catch(done);
+           done();
        }).catch(done);
     });
 
@@ -80,42 +77,6 @@ describe('testing client', function () {
                 body.toString().should.be.equal("hello");
                 done();
             });
-        });
-    });
-
-    it('should be able to use jaydata context',function(done){
-        client(url + "/").createDataContext(function(err, dataContext) {
-            should.exist(dataContext)
-            done();
-        });
-    });
-
-    it('createDataContext should create and read template',function(done){
-        client(url + "/").createDataContext(function(err, dataContext) {
-            dataContext.templates.add({
-                content: "hello"
-            });
-
-            dataContext.saveChanges().then(function() {
-                dataContext.templates.toArray().then(function(res) {
-                    res[0].content.should.be.equal("hello");
-                    done();
-                }).catch(done)
-            }).catch(done);
-        });
-    });
-
-    it('creating entity should update its shortid',function(done){
-        client(url + "/").createDataContext(function(err, dataContext) {
-
-            var template = dataContext.templates.add({
-                content: "hello"
-            });
-
-            dataContext.saveChanges().then(function() {
-                template.shortid.should.be.ok;
-                done();
-            }).catch(done);
         });
     });
 });
