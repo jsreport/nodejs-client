@@ -13,16 +13,22 @@
   "description": "Remote node.js client to ",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter spec test"
+    "test": "mocha --reporter spec test && standard"
   },
   "licence": "MIT",
   "devDependencies": {
-    "jsreport": "jsreport/jsreport",
-    "mocha": "^1.21.4",
-    "should": "^4.0.4"
+    "eslint": "3.1.0",
+    "jsreport-authentication": "1.0.3",
+    "jsreport-core": "1.0.5",
+    "jsreport-express": "1.0.2",
+    "jsreport-jsrender": "1.0.1",
+    "mocha": "2.5.3",
+    "should": "9.0.2",
+    "standard": "7.1.2"
   },
   "dependencies": {
-    "concat-stream": "^1.4.6",
-    "request": "^2.40.0"
+    "concat-stream": "1.5.1",
+    "lodash.assign": "4.0.9",
+    "request": "2.73.0"
   }
 }
