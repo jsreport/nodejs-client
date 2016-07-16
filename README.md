@@ -1,5 +1,6 @@
 #jsreport nodejs client
 
+[![NPM Version](http://img.shields.io/npm/v/jsreport-client.svg?style=flat-square)](https://npmjs.com/package/jsreport-client)
 [![Build Status](https://travis-ci.org/jsreport/nodejs-client.png?branch=master)](https://travis-ci.org/jsreport/nodejs-client)
 
 >npm install jsreport-client
@@ -17,7 +18,7 @@ I do accept pull requests. Just make sure tests are running.
 ##License
 The MIT License (MIT)
 
-Copyright (c) 2014 jsreport
+Copyright (c) 2016 jsreport
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
