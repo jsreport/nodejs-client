@@ -1,21 +1,21 @@
-#jsreport nodejs client
+# jsreport nodejs client
 
 [![NPM Version](http://img.shields.io/npm/v/jsreport-client.svg?style=flat-square)](https://npmjs.com/package/jsreport-client)
 [![Build Status](https://travis-ci.org/jsreport/nodejs-client.png?branch=master)](https://travis-ci.org/jsreport/nodejs-client)
 
 >npm install jsreport-client
 
-**jsreport node.js remote client. Documentation can be found [here](http://jsreport.net/learn/nodejs-client).**
+**jsreport node.js remote client. Documentation can be found [here](https://jsreport.net/learn/nodejs-client).**
 
-##Development
+## Development
 >git clone
 >npm install
 >npm test
 
-##Contributing
+## Contributing
 I do accept pull requests. Just make sure tests are running.
 
-##License
+## License
 The MIT License (MIT)
 
 Copyright (c) 2016 jsreport
