@@ -10,14 +10,31 @@
     "type": "git",
     "url": "git@github.com:jsreport/nodejs-client.git"
   },
-  "description": "Remote node.js client to ",
+  "description": "jsreport node.js client",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec test && standard"
   },
   "licence": "MIT",
+  "engines": {
+    "node": ">=8.0"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "env": {
+      "node": true,
+      "mocha": true
+    }
+  },
+  "dependencies": {
+    "concat-stream": "1.6.0",
+    "mimic-response": "1.0.0",
+    "request": "2.83.0"
+  },
   "devDependencies": {
+    "babel-eslint": "8.0.2",
     "eslint": "4.18.1",
+    "eslint-plugin-babel": "4.1.2",
     "jsreport-authentication": "github:jsreport/jsreport-authentication#2.0.0-beta",
     "jsreport-core": "github:jsreport/jsreport-core#2.0.0-beta",
     "jsreport-express": "github:jsreport/jsreport-express#2.0.0-beta",
@@ -25,10 +42,5 @@
     "mocha": "5.0.1",
     "should": "13.2.1",
     "standard": "11.0.0"
-  },
-  "dependencies": {
-    "concat-stream": "1.6.0",
-    "lodash.assign": "4.2.0",
-    "request": "2.83.0"
   }
 }
