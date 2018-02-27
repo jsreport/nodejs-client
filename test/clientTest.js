@@ -80,13 +80,13 @@ describe('testing client', function () {
   it('should be able to set timeout', function (done) {
     client(url).render({
       template: {
-        content: 'hello {{:~foo}}',
+        content: 'hello {{:~foo()}}',
         recipe: 'html',
         engine: 'jsrender',
         helpers: 'function foo() { while (true) { } }'
       }
     }, { timeout: 100 }, function (err, res) {
-      err.message.should.containEql('ETIMEDOUT')
+      err.message.should.containEql('ESOCKETTIMEDOUT')
       done()
     })
   })
