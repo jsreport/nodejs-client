@@ -18,8 +18,8 @@ describe('testing client', () => {
     await jsreport.init()
   })
 
-  afterEach((done) => {
-    jsreport.express.server.close(done)
+  afterEach(async () => {
+    await jsreport.close()
   })
 
   it('should be able to render html', async () => {
