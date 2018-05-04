@@ -1,102 +1,86 @@
-/*globals describe, it, beforeEach, afterEach */
+/* globals describe, it, beforeEach, afterEach */
 
-var should = require('should')
-var Jsreport = require('jsreport-core')
-var jsreportJsrender = require('jsreport-jsrender')
-var jsreportAuthentication = require('jsreport-authentication')
-var jsreportExpress = require('jsreport-express')
-var client = require('../lib/client.js')
+const should = require('should')
+const Jsreport = require('jsreport-core')
+const jsreportJsrender = require('jsreport-jsrender')
+const jsreportAuthentication = require('jsreport-authentication')
+const jsreportExpress = require('jsreport-express')
+const client = require('../lib/client.js')
 
-describe('testing client', function () {
-  var url = 'http://localhost:3000'
-  var jsreport
+describe('testing client', () => {
+  const url = 'http://localhost:3000'
+  let jsreport
 
-  beforeEach(function (done) {
+  beforeEach(async () => {
     jsreport = Jsreport({ httpPort: 3000 })
     jsreport.use(jsreportJsrender())
     jsreport.use(jsreportExpress())
-    jsreport.init().then(function () {
-      done()
-    }).catch(done)
+    await jsreport.init()
   })
 
-  afterEach(function (done) {
-    jsreport.express.server.close(done)
+  afterEach(async () => {
+    await jsreport.close()
   })
 
-  it('should be able to render html', function (done) {
-    client(url).render({
+  it('should be able to render html', async () => {
+    const res = await client(url).render({
       template: { content: 'hello', recipe: 'html', engine: 'none' }
-    }, function (err, res) {
-      should.not.exist(err)
-      should.exist(res)
-
-      res.body(function (body) {
-        body.toString().should.be.equal('hello')
-        done()
-      })
     })
+
+    should.exist(res)
+
+    const body = await res.body()
+    body.toString().should.be.equal('hello')
   })
 
-  it('should properly handle errors', function (done) {
-    client(url).render({
+  it('should properly handle errors', async () => {
+    return client(url).render({
       template: { content: 'hello{{for}}', recipe: 'html', engine: 'jsrender' }
-    }, function (err, res) {
-      should.exist(err)
-      err.message.should.containEql('{{for}}')
-      done()
-    })
+    }).should.be.rejectedWith(/{{for}}/)
   })
 
-  it('should work also with / at the end of url', function (done) {
-    client(url + '/').render({
+  it('should work also with / at the end of url', async () => {
+    const res = await client(url + '/').render({
       template: { content: 'hello', recipe: 'html', engine: 'jsrender' }
-    }, function (err, res) {
-      should.not.exist(err)
-      should.exist(res)
-
-      res.body(function (body) {
-        body.toString().should.be.equal('hello')
-        done()
-      })
     })
+
+    should.exist(res)
+
+    const body = await res.body()
+
+    body.toString().should.be.equal('hello')
   })
 
-  it('should be able to do a complex render with data', function (done) {
-    client(url + '/').render({
+  it('should be able to do a complex render with data', async () => {
+    const res = await client(url + '/').render({
       template: { content: '{{:a}}', recipe: 'html', engine: 'jsrender' },
       data: { a: 'hello' }
-    }, function (err, res) {
-      should.not.exist(err)
-      should.exist(res)
-
-      res.body(function (body) {
-        body.toString().should.be.equal('hello')
-        done()
-      })
     })
+
+    should.exist(res)
+
+    const body = await res.body()
+
+    body.toString().should.be.equal('hello')
   })
 
-  it('should be able to set timeout', function (done) {
-    client(url).render({
+  it('should be able to set timeout', async () => {
+    return client(url).render({
       template: {
-        content: 'hello {{:~foo}}',
+        content: 'hello {{:~foo()}}',
         recipe: 'html',
         engine: 'jsrender',
         helpers: 'function foo() { while (true) { } }'
       }
-    }, { timeout: 100 }, function (err, res) {
-      err.message.should.containEql('ETIMEDOUT')
-      done()
-    })
+    }, { timeout: 100 }).should.be.rejected()
   })
 })
 
-describe('testing client with authentication', function () {
+describe('testing client with authentication', () => {
   var url = 'http://localhost:3000'
   var jsreport
 
-  beforeEach(function (done) {
+  beforeEach(async () => {
     jsreport = Jsreport({ httpPort: 3000 })
     jsreport.use(jsreportExpress())
     jsreport.use(jsreportAuthentication({
@@ -108,47 +92,36 @@ describe('testing client with authentication', function () {
         password: 'password'
       }
     }))
-    jsreport.init().then(function () {
-      done()
-    }).catch(done)
+    await jsreport.init()
   })
 
-  afterEach(function (done) {
+  afterEach((done) => {
     jsreport.express.server.close(done)
   })
 
-  it('should be able to render html', function (done) {
-    client(url, 'test', 'password').render({
+  it('should be able to render html', async () => {
+    const res = await client(url, 'test', 'password').render({
       template: { content: 'hello', recipe: 'html', engine: 'none' }
-    }, function (err, res) {
-      should.not.exist(err)
-      should.exist(res)
-
-      res.body(function (body) {
-        body.toString().should.be.equal('hello')
-        done()
-      })
     })
+
+    should.exist(res)
+
+    const body = await res.body()
+
+    body.toString().should.be.equal('hello')
   })
 
-  it('should response 401 without credentials', function (done) {
-    client(url).render({
+  it('should response 401 without credentials', async () => {
+    return client(url).render({
       template: { content: 'hello', recipe: 'html', engine: 'none' }
-    }, function (err, res) {
-      err.message.should.containEql('401')
-      done()
-    })
+    }).should.be.rejectedWith(/401/)
   })
 })
 
-describe('testing client without connection', function () {
-  it('should be able to render html', function (done) {
-    client('http://localhost:9849').render({
+describe('testing client without connection', () => {
+  it('should be able to render html', () => {
+    return client('http://localhost:9849').render({
       template: { content: 'hello', recipe: 'html' }
-    }, function (err, res) {
-      should.exist(err)
-      done()
-    })
+    }).should.be.rejected()
   })
 })
-
