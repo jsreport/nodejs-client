@@ -74,6 +74,23 @@ describe('testing client', () => {
       }
     }, { timeout: 100 }).should.be.rejected()
   })
+
+  it('should have infinite body size limit', async () => {
+    const data = { foo: 'foo', people: [] }
+
+    for (var i = 0; i < 2000000; i++) {
+      data.people.push(i)
+    }
+
+    await client(url).render({
+      template: {
+        content: 'hello',
+        recipe: 'html',
+        engine: 'jsrender'
+      },
+      data
+    })
+  }).timeout(10000)
 })
 
 describe('testing client with authentication', () => {
@@ -123,5 +140,5 @@ describe('testing client without connection', () => {
     return client('http://localhost:9849').render({
       template: { content: 'hello', recipe: 'html' }
     }).should.be.rejected()
-  })
+  }).timeout(10000)
 })
