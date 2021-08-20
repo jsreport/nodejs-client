@@ -1,3 +1,6 @@
+**⚠️ This repository has been moved to the monorepo [jsreport/jsreport](https://github.com/jsreport/jsreport)**
+--
+
 # jsreport nodejs client
 
 [![NPM Version](http://img.shields.io/npm/v/jsreport-client.svg?style=flat-square)](https://npmjs.com/package/jsreport-client)
